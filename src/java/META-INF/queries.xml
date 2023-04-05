@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd">
+ 
+ <named-query name="filmGreaterThan">
+	 <query>
+		 select f from Film f 
+		 join fetch f.actors
+		 where f.grade > :grade
+	 </query>
+ </named-query>
+ 
+  <named-native-query name="ObtainAverageOfFilms" result-set-mapping="GradeFilmMap">
+	 <query>
+		 select AVG(grade) as average from Film
+	 </query>
+ </named-native-query>
+ 
+ 
+ 
+ <sql-result-set-mapping name="GradeFilmMap">
+	 <constructor-result target-class="modelQuery.FilmGrade">
+		 <column name="average" class="java.lang.Double" />
+	 </constructor-result>
+	 
+		 
+	 
+ </sql-result-set-mapping>
+ 
+</entity-mappings>
